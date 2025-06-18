@@ -64,7 +64,9 @@ unpacked_extensions/fmkadmapgofadopljbjfkapdkoienihi/
 Extension ID: fmkadmapgofadopljbjfkapdkoienihi
 Title: React Developer Tools
 Description: Adds React debugging tools to the Chrome Developer Tools.
-URL: https://chrome.google.com/webstore/detail/_/fmkadmapgofadopljbjfkapdkoienihi
+URL: https://chrome.google.com/webstore/detail/fmkadmapgofadopljbjfkapdkoienihi
+SHA256: a9e1ca21259e97fe869ae42fa430ec501ebe9bdd6ff9524c4a10c9900c22179d
+VirusTotal: https://www.virustotal.com/gui/file/a9e1ca21259e97fe869ae42fa430ec501ebe9bdd6ff9524c4a10c9900c22179d
 ```
 
 ---

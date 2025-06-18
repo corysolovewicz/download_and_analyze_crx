@@ -12,10 +12,6 @@ It downloads `.crx` files directly from the Chrome update service, extracts them
 - ✅ Fetch metadata from the Chrome Web Store page:
   - Title  
   - Description  
-  - Overview  
-  - Rating count  
-  - User count  
-  - Everything under the **"Additional Information"** section (version, size, permissions, etc.)  
 - ✅ Saves metadata to `extension_info.txt` alongside extracted files
 
 ---
@@ -69,19 +65,6 @@ Extension ID: fmkadmapgofadopljbjfkapdkoienihi
 Title: React Developer Tools
 Description: Adds React debugging tools to the Chrome Developer Tools.
 URL: https://chrome.google.com/webstore/detail/_/fmkadmapgofadopljbjfkapdkoienihi
-
-Overview:
-React Developer Tools is a Chrome DevTools extension for the open-source React JavaScript library.
-
-Rating Count: 2,104
-User Count: 3,000,000+
-
-Additional Details:
-Version: 5.1.0
-Updated: June 3, 2025
-Size: 2.35MiB
-Languages: 11
-Permissions: Read and change all your data on the websites you visit
 ```
 
 ---

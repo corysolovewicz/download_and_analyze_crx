@@ -27,50 +27,19 @@ def extract_crx(crx_data: bytes, output_dir: str):
         zf.extractall(output_dir)
     print(f"[+] Extracted to: {output_dir}")
 
-def extract_additional_info(soup: BeautifulSoup) -> str:
-    for section in soup.find_all("section"):
-        heading = section.find(["h2", "h3"])
-        if heading and "Additional Information" in heading.text:
-            details = ""
-            for div in section.find_all("div", recursive=False):
-                spans = div.find_all("span")
-                if len(spans) >= 2:
-                    label = spans[0].text.strip()
-                    value = spans[-1].text.strip()
-                    details += f"{label}: {value}\n"
-            return details.strip()
-    return "N/A"
-
 def fetch_extension_info(ext_id: str) -> str:
-    store_url = f"https://chrome.google.com/webstore/detail/_/{ext_id}"
+    store_url = f"https://chrome.google.com/webstore/detail/{ext_id}"
     headers = {"User-Agent": "Mozilla/5.0"}
     res = requests.get(store_url, headers=headers, timeout=20)
     res.raise_for_status()
     soup = BeautifulSoup(res.text, "html.parser")
 
-    def safe_text(selector):
-        el = soup.select_one(selector)
-        return el.text.strip() if el else "N/A"
+    name = soup.find("h1")
+    desc = soup.find("meta", attrs={"name": "description"})
+    title = name.text.strip() if name else "N/A"
+    description = desc["content"].strip() if desc else "N/A"
 
-    title = safe_text('h1')
-    description = soup.find("meta", attrs={"name": "description"})
-    description = description["content"].strip() if description else "N/A"
-    overview = safe_text('div.C-b-p-j-D.Xb > span')  # fallback if not in section
-    rating_count = safe_text('span.e-f-ih')
-    user_count = safe_text('span.e-f-ih[aria-label*="users"]')
-
-    additional_info = extract_additional_info(soup)
-
-    return (
-        f"Extension ID: {ext_id}\n"
-        f"Title: {title}\n"
-        f"Description: {description}\n"
-        f"URL: {store_url}\n\n"
-        f"Overview:\n{overview}\n\n"
-        f"Rating Count: {rating_count}\n"
-        f"User Count: {user_count}\n\n"
-        f"Additional Details:\n{additional_info}"
-    )
+    return f"Extension ID: {ext_id}\nTitle: {title}\nDescription: {description}\nURL: {store_url}\n"
 
 def main(ext_id: str):
     base_dir = f"unpacked_extensions/{ext_id}"
@@ -78,6 +47,11 @@ def main(ext_id: str):
 
     try:
         crx_data = download_crx(ext_id)
+        # Save the original .crx file
+        crx_path = os.path.join(base_dir, f"{ext_id}.crx")
+        with open(crx_path, "wb") as crx_file:
+            crx_file.write(crx_data)
+        print(f"[+] CRX file saved to: {crx_path}")
         extract_crx(crx_data, base_dir)
         info = fetch_extension_info(ext_id)
         with open(os.path.join(base_dir, "extension_info.txt"), "w", encoding="utf-8") as f:

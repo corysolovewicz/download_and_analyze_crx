@@ -66,7 +66,7 @@ def main(ext_id: str):
                 sha256_hash.update(chunk)
         hash_hex = sha256_hash.hexdigest()
         #print(f"[+] SHA256: {hash_hex}")  # Optional: print hash only
-        vt_url = f"https://www.virustotal.com/gui/file/{hash_hex}"
+        vt_url = f"https://www.virustotal.com/gui/search/{hash_hex}"
         #print(f"[+] VirusTotal URL: {vt_url}")  # Optional: print VT URL only
         extract_crx(crx_data, base_dir)  # Unpack extension contents
         info = fetch_extension_info(ext_id)  # Get metadata from web store

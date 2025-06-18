@@ -97,7 +97,10 @@ This tool is designed for researchers, reverse engineers, and security analysts 
 ---
 
 ## 📝 License
-
+```
+GNU GENERAL PUBLIC LICENSE
+Version 3, 29 June 2007
+```
 
 ---
 
